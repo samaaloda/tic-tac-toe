@@ -6,11 +6,17 @@ import java.util.Scanner;
 public abstract class Player {
 	private int num;
 	private char symbol;
+	private char type;
 	
 	//constructor for this class with their num and symbol
-	public Player(int num, char symbol) {
+	public Player(int num, char symbol, char type) {
 		this.num=num;
 		this.symbol=symbol;
+		this.type=type;
+	}
+
+	public char getType(){
+		return type;
 	}
 	
 	//returns the num of the player
@@ -32,8 +38,8 @@ public abstract class Player {
 class HumanPlayer extends Player{
 
 	//contructor for the class that calls on parent class
-	public HumanPlayer(int num, char symbol) {
-		super(num, symbol);
+	public HumanPlayer(int num, char symbol, char type) {
+		super(num, symbol, type);
 	}
 	
 	//returns an int array declaring the human player's choice of row and column of where they'd like to place their mark
@@ -73,6 +79,30 @@ class HumanPlayer extends Player{
 			return false;
 		}
 	}
+
+	public int[] checkMove(char[][] marks, int[] choice) {
+		ArrayList<int[]> validArr=validArray(marks);
+		for(int i=0;i<validArr.size();i++) {
+			if(validArr.get(i)[0]==choice[0] && validArr.get(i)[1]==choice[1])
+				return choice;
+		}
+		return new int[] {-1,-1};
+	}
+	
+	//below returns an ArrayList of possible choices
+	private ArrayList<int[]> validArray(char[][] marks){
+		ArrayList <int[]> validSpots=new ArrayList<>();
+		for(int i=0;i<marks.length;i++) {
+			for(int j=0;j<marks.length;j++) {
+				if(marks[i][j]=='-') {
+					int[] spot= {i,j};
+					validSpots.add(spot);
+				}
+			}
+		}
+		return validSpots;
+		
+	}
 		
 }
 
@@ -80,8 +110,8 @@ class HumanPlayer extends Player{
 class CompPlayer extends Player{
 	
 	//constructor for this class that calls on parent class
-	public CompPlayer(int num, char symbol) {
-		super(num, symbol);
+	public CompPlayer(int num, char symbol, char type) {
+		super(num, symbol, type);
 	}
 	
 	//below is a function for the computer to make a move

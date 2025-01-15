@@ -1,12 +1,25 @@
 import java.util.Scanner;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+
+
 public class Main {
 	public static void main(String [] args) {
-		System.out.println("\nWelcome to TicTacToe! I dare you to win against the computer ;)");
-		Game game = new Game(); //creates a new instance of class Game
-		game.playGame(); //plays game
-
-		System.out.println("\nTold you you couldn't win ;) Bye now!");
+		new GUIGame();
+		
 	}
 }
+
+
 
