@@ -1,6 +1,6 @@
-Tic-Tac-Toe
+# Tic-Tac-Toe
 
-Description: 
+## **Description:** 
 A classic game that's loved by all. The game is a 3 by 3 grid, where the goal is traditionally to 
 beat your opponent by placing three of your marks in a straight line; either as a diagonal, 
 horizontal or vertical lines. 
