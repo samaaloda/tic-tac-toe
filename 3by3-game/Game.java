@@ -1,8 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -163,15 +161,7 @@ class GUIGame extends Game implements ActionListener {
     JLabel status;
 	JLabel pick;
 
-    JButton b11;
-    JButton b12;
-    JButton b13;
-    JButton b21;
-    JButton b22;
-    JButton b23;
-    JButton b31;
-    JButton b32;
-    JButton b33;
+	JButton[][] buttons;
 
 	JButton Coption;
 	JButton Hoption;
@@ -185,30 +175,24 @@ class GUIGame extends Game implements ActionListener {
         frame = new JFrame();
 		frame.setSize(1000,1000);
 
-        b11 = new JButton("-");
-        b12 = new JButton("-");
-        b13 = new JButton("-");
-        b21 = new JButton("-");
-        b22 = new JButton("-");
-        b23 = new JButton("-");
-        b31 = new JButton("-");
-        b32 = new JButton("-");
-        b33 = new JButton("-");
 		Coption= new JButton("Computer");
 		Hoption= new JButton("Human");
 		status = new JLabel("Starting Game...");
+		status.setFont(new Font("Arial", Font.BOLD, 14));
 		
 		everyth=new JPanel();
-		everyth.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-		everyth.setLayout(new GridLayout(5,1));
+		everyth.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		everyth.setLayout(new GridLayout(4,1));
+		everyth.setBackground(Color.lightGray);
 
         title = new JLabel("Tic-Tac-Toe", SwingConstants.CENTER);
-        title.setFont(new Font("Arial", Font.BOLD, 24));
-        //frame.add(title, BorderLayout.NORTH);
+        title.setFont(new Font("Arial", Font.BOLD, 30));
+		title.setBackground(Color.white);
 
 		options= new JPanel();
-		options.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+		options.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         options.setLayout(new GridLayout(1, 2));
+		options.setBackground(Color.lightGray);
 
 
 		options.add(Coption);
@@ -219,28 +203,21 @@ class GUIGame extends Game implements ActionListener {
 
 
         grid = new JPanel();
-        grid.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+        grid.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
         grid.setLayout(new GridLayout(3, 3));
+		grid.setBackground(Color.DARK_GRAY);
 
-        grid.add(b11);
-        grid.add(b12);
-        grid.add(b13);
-        grid.add(b21);
-        grid.add(b22);
-        grid.add(b23);
-        grid.add(b31);
-        grid.add(b32);
-        grid.add(b33);
+		buttons = new JButton[3][3];
+		for(int i=0;i<3;i++){
+			for(int j=0;j<3;j++){
+				buttons[i][j]=new JButton("-");
+				grid.add(buttons[i][j]);
+				buttons[i][j].setBackground(Color.white);
+				buttons[i][j].setFont(new Font("Arial", Font.BOLD, 16));
+			}
+		}
 
-        b11.addActionListener(this);
-        b12.addActionListener(this);
-        b13.addActionListener(this);
-        b21.addActionListener(this);
-        b22.addActionListener(this);
-        b23.addActionListener(this);
-        b31.addActionListener(this);
-        b32.addActionListener(this);
-        b33.addActionListener(this);
+
 
 		everyth.add(title);		
 		
@@ -250,8 +227,9 @@ class GUIGame extends Game implements ActionListener {
 
         frame.add(everyth, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         
+		frame.pack();
+        frame.setLocationRelativeTo(null);
 
         frame.setTitle("Tic-Tac-Toe");
         frame.setVisible(true);
@@ -276,54 +254,49 @@ class GUIGame extends Game implements ActionListener {
 
         ActionListener listener = e -> {
             JButton source = (JButton) e.getSource();
-            if (source == b11){ 
+            if (source == buttons[0][0]){ 
 				choice[0] =0; 
 				choice[1] = 0;
 			}
-            else if (source == b12){ 
+            else if (source == buttons[0][1]){ 
 				choice[0] =0; 
 				choice[1] = 1;
 			}
-            else if (source == b13){
+            else if (source == buttons[0][2]){
 				choice[0] =0; 
 				choice[1] = 2;
 			}
-            else if (source == b21) {
+            else if (source == buttons[1][0]) {
 				choice[0] =1; 
 				choice[1] = 0;
 			}
-            else if (source == b22) {
+            else if (source == buttons[1][1]) {
 				choice[0] =1; 
 				choice[1] = 1;
 			}
-            else if (source == b23) {
+            else if (source == buttons[1][2]) {
 				choice[0] =1; 
 				choice[1] = 2;
 			}
-            else if (source == b31) {
+            else if (source == buttons[2][0]) {
 				choice[0] =2; 
 				choice[1] = 0;
 			}
-            else if (source == b32) {
+            else if (source == buttons[2][1]) {
 				choice[0] =2; 
 				choice[1] =1;
 			}
-            else if (source == b33) {
+            else if (source == buttons[2][2]) {
 				choice[0] =2; 
 				choice[1] = 2;
 			}
 			latch.countDown();
         };
 
-        b11.addActionListener(listener);
-        b12.addActionListener(listener);
-        b13.addActionListener(listener);
-        b21.addActionListener(listener);
-        b22.addActionListener(listener);
-        b23.addActionListener(listener);
-        b31.addActionListener(listener);
-        b32.addActionListener(listener);
-        b33.addActionListener(listener);
+		for(int i=0;i<3;i++){
+			for(int j=0;j<3;j++)
+				buttons[i][j].addActionListener(listener);
+		}
 
 		try {
         	latch.await(); 
@@ -335,24 +308,8 @@ class GUIGame extends Game implements ActionListener {
     }
 
 	public void displayGame(int[] choice, char sym){
-		if(choice[0]==0 && choice[1]==0)
-			b11.setText(""+sym);
-		else if(choice[0]==0 && choice[1]==1)
-			b12.setText(""+sym);
-		else if(choice[0]==0 && choice[1]==2)
-			b13.setText(""+sym);
-		else if(choice[0]==1 && choice[1]==0)
-			b21.setText(""+sym);
-		else if(choice[0]==1 && choice[1]==1)
-			b22.setText(""+sym);
-		else if(choice[0]==1 && choice[1]==2)
-			b23.setText(""+sym);
-		else if(choice[0]==2 && choice[1]==0)
-			b31.setText(""+sym);
-		else if(choice[0]==2 && choice[1]==1)
-			b32.setText(""+sym);
-		else
-			b33.setText(""+sym);
+
+		buttons[choice[0]][choice[1]].setText(""+sym);
 
 	}
 
@@ -395,11 +352,6 @@ class GUIGame extends Game implements ActionListener {
 		Coption.setEnabled(false);
 		Hoption.setEnabled(false);
 
-
-		/*
-		players[0]=new HumanPlayer(1, 'X');
-		players[1]=new HumanPlayer(2, 'O');*/
-		do {
 			board.empty();
 		while(!isOver() || board.haveWinner()=='-') {
 			status.setText("Player 1's turn: ");
@@ -434,13 +386,7 @@ class GUIGame extends Game implements ActionListener {
 
 		
 		return;
-
-		/*int choice=inputIntegerBetween("Would you like to restart? 1 for yes, 2 for no ",1,2);
-		if (choice==2)
-			break;
-		else
-			startGame(); //starts game if user would like to restart*/
-		}while(true);
 		
 	}
 }
+
