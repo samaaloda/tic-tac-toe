@@ -1,4 +1,5 @@
 # Tic-Tac-Toe
+![image](https://github.com/user-attachments/assets/9c4ae314-e7d4-46d4-92bb-7c383aa12f76)
 
 ## **Description:** 
 A classic game that's loved by all. The game is a 3 by 3 grid, where the goal is traditionally to 
